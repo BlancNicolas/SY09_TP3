@@ -94,7 +94,7 @@ kppv.val <- function(Xapp, zapp, K, Xtst)
   etiquette <- vector(length = nrow(Xtst))
   for (i in 1:nrow(Xtst)){
     tab_voisins <- vector("numeric",length = K);
-    distanceXtstXapp <- distXY(Xtst[i,], Xapp)
+    distanceXtstXapp <- distXY(Xtst[1,], Xapp)
     sort_table <- sort(distanceXtstXapp,index.return = TRUE)$ix;
     for(l in 1:K){
       tab_voisins[l] = zapp[sort_table[l]];
@@ -144,7 +144,7 @@ Xtst <- donn.sep$Xtst
 ztst <- donn.sep$ztst
 
 Kopt <- kppv.tune(Xapp, zapp, Xval, zval,2*(1:6)-1)
-front.kppv(Xapp, zapp, Kopt, 1000)
+front.kppv(X, z, 3, 500)
 
 #Partie 1.2
 
@@ -184,7 +184,6 @@ kppv.tune <- function(xapp, zapp, Xval, zval, nppv){
     min <- i;
     erreur_opt <- 1
     result <- kppv.val(xapp, zapp, i, Xval);
-    print (result);
     erreur <- sum((result == zval) == TRUE)/length(zval)
     if (erreur_opt > erreur){
       erreur_opt <- erreur;
@@ -194,5 +193,4 @@ kppv.tune <- function(xapp, zapp, Xval, zval, nppv){
   
   return (min);
 }
-
 

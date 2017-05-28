@@ -39,9 +39,9 @@ ceuc.app <- function(Xapp, zapp)
       j = j + 1;
     }
     else {matclasse2[k,] = as.matrix(Xapp[i,]);
-    k = k+1;} #on stocke dans la matrice pour la classe 2 à l'indice k l'individu associé 
+    k = k+1;} #on stocke dans la matrice pour la classe 2 Ã  l'indice k l'individu associÃ© 
   }
-  mu[1,] <- (apply(matclasse1[1:j-1,], 2, mean));#on applique la moyenne aux colonnes 
+  mu[1,] <- (apply(matclasse1[1:j-1,], 2, mean));#applying mean on columns
   mu[2,] <- (apply(matclasse2[1:k-1,],2, mean));
   return(mu);
 
@@ -54,7 +54,7 @@ ceuc.val <- function(Xtst, mu)
   etiquette <- vector("numeric", ntst);
   distance <- distXY(Xtst, mu);
   for (i in 1:ntst) {
-    if (distance[i, 1] < distance[i, 2])#on cherche à savoir à quelle classe appartient l'individu
+    if (distance[i, 1] < distance[i, 2])#on cherche Ã  savoir Ã  quelle classe appartient l'individu
     {
       etiquette[i] = 1;
     }

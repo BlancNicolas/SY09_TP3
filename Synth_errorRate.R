@@ -1,7 +1,7 @@
 #AT FIRST : USE load-data.R file 
 
 #list of our datasets we want to estimate
-donn_list = list(donn40, donn100, donn500, donn1000, donn1000_2);
+donn_list = list(donn40, donn100, donn500, donn1000);
 
 #error matrix
 error_train <- matrix(0, length(donn_list), 20);

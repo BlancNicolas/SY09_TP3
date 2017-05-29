@@ -177,16 +177,14 @@ kppv.val <- function(Xapp, zapp, K, Xtst)
   
 }
 
-kppv.tune <- function(xapp, zapp, Xval, zval, nppv){
+kppv.tune <- function(Xapp, zapp, Xval, zval, nppv){
   length_nppv <- length(nppv);
   listError <- vector("numeric", length_nppv);
+  erreur_opt <- 0;
   for (i in nppv){
-    min <- i;
-    erreur_opt <- 1
-    result <- kppv.val(xapp, zapp, i, Xval);
-    print (result);
+    result <- kppv.val(Xapp, zapp, i, Xval);
     erreur <- sum((result == zval) == TRUE)/length(zval)
-    if (erreur_opt > erreur){
+    if (erreur > erreur_opt){
       erreur_opt <- erreur;
       min <- i
     }
@@ -194,5 +192,4 @@ kppv.tune <- function(xapp, zapp, Xval, zval, nppv){
   
   return (min);
 }
-
 

@@ -9,7 +9,7 @@ error_test <-  matrix(0, length(donn_list), 20);
 
 #start of algorithm 
 for (i in 1:length(donn_list)) {
-  data <- as.data.frame(donn_list[])
+  data <- as.data.frame(donn_list[i])
   X <- data[,1:2];
   z <- data[,3];
   for (j in 1:20 ){

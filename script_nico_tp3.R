@@ -155,7 +155,7 @@ Xtst <- donn.sep$Xtst
 ztst <- donn.sep$ztst
 
 Kopt <- kppv.tune(Xapp, zapp, Xval, zval,2*(1:6)-1)
-front.kppv(Xapp, zapp, Kopt, 1000)
+front.kppv(X, z, 3, 500)
 
 #Partie 1.2
 

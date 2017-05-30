@@ -101,7 +101,7 @@ for (i in 1:length(donn_list)) {
 #AT FIRST : USE load-data.R file 
 
 #list of our datasets we want to estimate
-donn_list = list(donn40, donn100, donn500, donn1000);
+donn_list = list(donn1000_2);
 
 #error matrix
 error_train_kppv <- matrix(0, length(donn_list), 20);
@@ -134,8 +134,8 @@ for (i in 1:length(donn_list)) {
     
     #error rate 
     
-    error_train_kppv[i,j] <- length(zapp[which(as.matrix(zapp) != as.matrix(zapp))]) / dim(Xapp)[1];
-    error_test_kppv[i,j] <- length(ztst[which(as.matrix(ztst) != as.matrix(ztst))]) / dim(Xtst)[1];
+    error_train_kppv[i,j] <- length(zapp_val[which(as.matrix(zapp_val) != as.matrix(zapp))]) / dim(Xapp)[1];
+    error_test_kppv[i,j] <- length(ztst_val[which(as.matrix(ztst_val) != as.matrix(ztst))]) / dim(Xtst)[1];
     
   }
   

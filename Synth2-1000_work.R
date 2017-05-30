@@ -80,7 +80,7 @@ donn_list = list(donn1000_2);
 opti_neigh = matrix(0, nrow = length(donn_list), ncol = 1)
 
 for (i in 1:length(donn_list)) {
-  data <- as.data.frame(donn_list[])
+  data <- as.data.frame(donn_list[i])
   X <- data[,1:2];
   z <- data[,3];
   

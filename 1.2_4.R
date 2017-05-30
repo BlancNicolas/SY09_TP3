@@ -13,7 +13,7 @@ for (i in 1:length(donn_list)) {
   X <- data[,1:2];
   z <- data[,3];
   for (j in 1:20 ){
-    
+
     donn.sep <- separ2(X, z) #using separ2.R function 
     
     #parting in learning and test sets 

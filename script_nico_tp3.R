@@ -93,7 +93,6 @@ kppv.val <- function(Xapp, zapp, K, Xtst)
 {
   etiquette <- vector(length = nrow(Xtst))
   distanceXtstXapp <- matrix(ncol = nrow(Xtst), nrow = nrow(Xapp))
-  
   distanceXtstXapp <- distXY(Xapp,Xtst)
   
   sort_table <- apply(distanceXtstXapp, 2, order); #le 2 signifie qu'on fait le trie sur les colonnes
@@ -160,9 +159,4 @@ front.kppv(X, z, 3, 500)
 #Partie 1.2
 
 #Question 1
-
-
-#fonctions arnaud 
-
-
 

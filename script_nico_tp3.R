@@ -92,31 +92,42 @@ front.kppv <- function(Xapp, zapp, K, discretisation=50)
 kppv.val <- function(Xapp, zapp, K, Xtst)
 {
   etiquette <- vector(length = nrow(Xtst))
-  for (i in 1:nrow(Xtst)){
-    tab_voisins <- vector("numeric",length = K);
-    distanceXtstXapp <- distXY(Xtst[i,], Xapp)
-    sort_table <- sort(distanceXtstXapp,index.return = TRUE)$ix;
-    for(l in 1:K){
-      tab_voisins[l] = zapp[sort_table[l]];
-    } 
-    etiquette[i] <- unique(which.max(table(tab_voisins)));
+  distanceXtstXapp <- matrix(ncol = nrow(Xtst), nrow = nrow(Xapp))
+  
+  distanceXtstXapp <- distXY(Xapp,Xtst)
+  
+  sort_table <- apply(distanceXtstXapp, 2, order); #le 2 signifie qu'on fait le trie sur les colonnes
+  sort_table2 <- sort_table;
+  
+  for(i in 1:K){
+    for(j in 1:ncol(sort_table2)){
+      sort_table2[i,j] <- zapp[sort_table[i,j]];
+    }
   }
-  return(etiquette);
+  sort_table2 <- sort_table2[1:K,];
+  if (is.null(dim(sort_table2))){
+    return (sort_table2);
+  } 
+  else return(round(apply(sort_table2, 2, mean)));
+  
 }
 
-kppv.tune <- function(xapp, zapp, Xval, zval, nppv){
+kppv.tune <- function(Xapp, zapp, Xval, zval, nppv){
   length_nppv <- length(nppv);
   listError <- vector("numeric", length_nppv);
-  for (i in 1:length_nppv){
-    result <- kppv.val(xapp, zapp, i, Xval);
-    for (j in 1:length(zval)){
-      if (result[j] != zval[j]){listError[i]=listError[i]+1;}
+  erreur_opt <- 0;
+  for (i in nppv){
+    result <- kppv.val(Xapp, zapp, i, Xval);
+    erreur <- sum((result == zval) == TRUE)/length(zval)
+    if (erreur > erreur_opt){
+      erreur_opt <- erreur;
+      min <- i
     }
-    
   }
-  res <- which.min(listError);
-  return (nppv[res]);
+  
+  return (min);
 }
+
 
 
 #euclidean test 
@@ -154,42 +165,4 @@ front.kppv(Xapp, zapp, Kopt, 1000)
 #fonctions arnaud 
 
 
-kppv.val <- function(Xapp, zapp, K, Xtst)
-{
-  etiquette <- vector(length = nrow(Xtst))
-  distanceXtstXapp <- matrix(ncol = nrow(Xtst), nrow = nrow(Xapp))
-
-  distanceXtstXapp <- distXY(Xapp,Xtst)
-  
-  sort_table <- apply(distanceXtstXapp, 2, order); #le 2 signifie qu'on fait le trie sur les colonnes
-  sort_table2 <- sort_table;
-  
-  for(i in 1:K){
-    for(j in 1:ncol(sort_table2)){
-      sort_table2[i,j] <- zapp[sort_table[i,j]];
-    }
-  }
-  sort_table2 <- sort_table2[1:K,];
-  if (is.null(dim(sort_table2))){
-    return (sort_table2);
-  } 
-  else return(round(apply(sort_table2, 2, mean)));
-  
-}
-
-kppv.tune <- function(Xapp, zapp, Xval, zval, nppv){
-  length_nppv <- length(nppv);
-  listError <- vector("numeric", length_nppv);
-  erreur_opt <- 0;
-  for (i in nppv){
-    result <- kppv.val(Xapp, zapp, i, Xval);
-    erreur <- sum((result == zval) == TRUE)/length(zval)
-    if (erreur > erreur_opt){
-      erreur_opt <- erreur;
-      min <- i
-    }
-  }
-  
-  return (min);
-}
 

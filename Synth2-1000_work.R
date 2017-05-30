@@ -131,7 +131,7 @@ for (i in 1:length(donn_list)) {
     #applying values on individuals of sets 
     zapp_val <- kppv.val(Xapp, zapp, Kopt, Xapp);
     ztst_val <- kppv.val(Xapp, zapp, Kopt, Xtst);
-    
+
     #error rate 
     
     error_train_kppv[i,j] <- length(zapp_val[which(as.matrix(zapp_val) != as.matrix(zapp))]) / dim(Xapp)[1];
@@ -140,6 +140,8 @@ for (i in 1:length(donn_list)) {
   }
   
 }
+
+
 
 #applying mean on rows which represent each dataset
 
@@ -157,12 +159,12 @@ ptrain <- as.matrix(average_error_rate_kppv[, 1]);
 ptest <- as.matrix(average_error_rate_kppv[, 2]);
 frac = 1.96;
 
-CI_tab <- matrix(0, nrow = nrow(average_error_rate_kppv), ncol = 4); #4 because of two values for each interval 
+CI_tab_kppv <- matrix(0, nrow = nrow(average_error_rate_kppv), ncol = 4); #4 because of two values for each interval 
 for (i in 1:nrow(average_error_rate)){
-  CI_tab[i, 1] <- ptrain[i] - frac * sqrt((ptrain[i]*(1-ptrain[i]))/nrow(as.data.frame(donn_list[i]))); #lower bound for CI on train set
-  CI_tab[i, 2] <- ptrain[i] + frac * sqrt((ptrain[i]*(1-ptrain[i]))/nrow(as.data.frame(donn_list[i]))); #upper bound for CI on train set
-  CI_tab[i, 3] <- ptest[i] - frac * sqrt((ptest[i]*(1-ptest[i]))/nrow(as.data.frame(donn_list[i]))); #lower bound for CI on test set
-  CI_tab[i, 4] <- ptest[i] + frac * sqrt((ptest[i]*(1-ptest[i]))/nrow(as.data.frame(donn_list[i]))); #upper bound for CI on test set
+  CI_tab_kppv[i, 1] <- ptrain[i] - frac * sqrt((ptrain[i]*(1-ptrain[i]))/nrow(as.data.frame(donn_list[i]))); #lower bound for CI on train set
+  CI_tab_kppv[i, 2] <- ptrain[i] + frac * sqrt((ptrain[i]*(1-ptrain[i]))/nrow(as.data.frame(donn_list[i]))); #upper bound for CI on train set
+  CI_tab_kppv[i, 3] <- ptest[i] - frac * sqrt((ptest[i]*(1-ptest[i]))/nrow(as.data.frame(donn_list[i]))); #lower bound for CI on test set
+  CI_tab_kppv[i, 4] <- ptest[i] + frac * sqrt((ptest[i]*(1-ptest[i]))/nrow(as.data.frame(donn_list[i]))); #upper bound for CI on test set
   
 }
 
